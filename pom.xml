@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.googlecode.the-fascinator.plugins</groupId>
+	<artifactId>plugin-roles-ldap</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>The Fascinator - Plugin - Roles - LDAP</name>
+	<description></description>
+	<url></url>
+	<parent>
+		<groupId>com.googlecode.the-fascinator</groupId>
+		<artifactId>fascinator-plugins</artifactId>
+		<version>1.1.2-SNAPSHOT</version>
+	</parent>
+	<properties>
+		<fascinator.version>1.1.2-SNAPSHOT</fascinator.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.googlecode.the-fascinator</groupId>
+			<artifactId>fascinator-common</artifactId>
+			<version>${fascinator.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.the-fascinator</groupId>
+			<artifactId>fascinator-plugin-api</artifactId>
+			<version>${fascinator.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>com.googlecode.the-fascinator</groupId>
+            <artifactId>fascinator-vocabulary</artifactId>
+            <version>${fascinator.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.the-fascinator.plugins</groupId>
+			<artifactId>plugin-authentication-ldap</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>
