@@ -71,16 +71,30 @@ import org.slf4j.LoggerFactory;
  * <td>uid</td>
  * </tr>
  * <tr>
- * <td>ldap/objectClassRoleMap</td>
- * <td>This value maps objectClass values from LDAP to the fascinator roles. If
- * the objectClass does not exist in the mapping, the user will not have any
- * roles.</td>
+ * <td>ldap/filterPrefix</td>
+ * <td>The prefix for the LDAP search filter</td>
+ * <td><b>No</b></td>
+ * <td>(empty string)</td>
+ * </tr>
+ * <tr>
+ * <td>ldap/filterSuffix</td>
+ * <td>The suffix for the LDAP search filter</td>
+ * <td><b>No</b></td>
+ * <td>(empty string)</td>
+ * </tr>
+ * <tr>
+ * <td>ldap/ldapRoleAttribute</td>
+ * <td>The name of the LDAP attribute that contains the role values</td>
+ * <td><b>No</b></td>
+ * <td>objectClass</td>
+ * </tr>
+ * <tr>
+ * <td>ldap/ldapRoleMap</td>
+ * <td>This value maps role attribute values from LDAP to the fascinator roles. If
+ * the role attribute value does not exist in the mapping, the user will not have
+ * any roles.</td>
  * <td><b>Yes</b></td>
- * <td> [{
-                    "objectClass": "person"
-                    "roles": ["registered"]
-                    
-                }]</td>
+ * <td>(empty list)</td>
  * </tr>
  * 
  * </table>
@@ -97,10 +111,19 @@ import org.slf4j.LoggerFactory;
  *                "baseURL": "ldap://ldap.uq.edu.au:389",
  *                "baseDN": "ou=people,o=The University of Queensland,c=AU",
  *                "idAttribute": "uid",
- *                "objectClassRoleMap": [{
- *                  "objectClass": "person"
- *                  "roles": ["registered"]     
- *              }]
+ *                "filterPrefix": "uniquemember=",
+ *                "filterSuffix": ",ou=people,dc=adelaide,dc=edu,dc=au",
+ *                "ldapRoleAttribute": "cn",
+ *                "ldapRoleMap": [
+ *                      {
+ *                            "ldapRoleAttrValue": "TFREG"
+ *                            "roles": ["registered"]
+ *                      },
+ *                      {
+ *                            "ldapRoleAttrValue": "TFADM"
+ *                            "roles": ["admin"]
+ *                      }
+ *                ]
  *            }
  *      }
  * </pre>
@@ -115,17 +138,20 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Greg Pendlebury and
  * @author Richard Hammond and
- * @author Andrew Brazzatti
+ * @author Andrew Brazzatti and
+ * @author Mike Jones
  */
 
 public class LDAPRoles implements Roles {
+
+	private static final String CONFIG_PROP_ROLES = "roles";
+	private static final String CONFIG_PROP_LDAP = "ldap";
+
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(LDAPRoles.class);
 
 	// Ldap authentication class
 	private LdapAuthenticationHandler ldapAuthHandler;
-
-	private String objectClassValue;
 
 	@Override
 	public String getId() {
@@ -167,27 +193,26 @@ public class LDAPRoles implements Roles {
 
 	public void setConfig(JsonSimpleConfig config) throws IOException {
 		// Get the basics
-		String url = config.getString(null, "roles", "ldap", "baseURL");
-		String baseDN = config.getString(null, "roles", "ldap", "baseDN");
-		String idAttribute = config.getString(null, "roles", "ldap",
-				"idAttribute");
-		// objectClassValue = config.getString(null, "roles", "ldap",
-		// "objectClassValue");
+		String url = config.getString(null, CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "baseURL");
+		String baseDN = config.getString(null, CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "baseDN");
+		String idAttribute = config.getString(null, CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "idAttribute");
+		String filterPrefix = config.getString("", CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "filterPrefix");
+		String filterSuffix = config.getString("", CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "filterSuffix");
+		String ldapRoleAttribute = config.getString("objectClass", CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "ldapRoleAttribute");
 
-		Map<String, List<String>> objectClassRolesMap = new HashMap<String, List<String>>();
+		Map<String, List<String>> ldapToFascinatorRolesMap = new HashMap<String, List<String>>();
 		List<JsonSimple> objectClassRolesList = config.getJsonSimpleList(
-				"roles", "ldap", "objectClassRoleMap");
+				CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "ldapRoleMap");
 		if (objectClassRolesList != null) {
 			for (JsonSimple q : objectClassRolesList) {
-				String objectClass = q.getString(null, "objectClass");
-				List<String> rolesList = q.getStringList("roles");
-				objectClassRolesMap.put(objectClass, rolesList);
-
+				String ldapRole = q.getString(null, "ldapRoleAttrValue");
+				List<String> fascinatorRolesList = q.getStringList("roles");
+				ldapToFascinatorRolesMap.put(ldapRole, fascinatorRolesList);
 			}
 		}
 
-		ldapAuthHandler = new LdapAuthenticationHandler(url, baseDN,
-				idAttribute, objectClassRolesMap);
+		ldapAuthHandler = new LdapAuthenticationHandler(url, baseDN, ldapRoleAttribute,
+				idAttribute, filterPrefix, filterSuffix, ldapToFascinatorRolesMap);
 	}
 
 	@Override
