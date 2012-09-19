@@ -4,23 +4,25 @@ This plugin allows The Fascinator platform to query an LDAP server to determine 
 
 ## Configuration ##
 
-`"ldap": {  
-        "baseURL": "ldap://localhost:389",  
-             "baseDN": "ou=people,o=Sample org,c=AU",  
-             "idAttribute": "uid",  
-             "objectClassRoleMap": [  
-                {  
-                    "objectClass": "adminOrgClass"  
-                    "roles": ["admin","registered"]   
-                },  
-                {  
-                    "objectClass": "registeredOrgClass"  
-                    "roles": ["registered"]                    
-                }  
-            ]  
-       }
-` 
- 
+	"ldap": {  
+		"baseURL": "ldap://localhost:389",  
+		"baseDN": "ou=people,o=Sample org,c=AU",  
+		"idAttribute": "uid",  
+		"filterPrefix": "uniquemember=",
+		"filterSuffix": ",ou=people,dc=adelaide,dc=edu,dc=au",
+		"ldapRoleAttribute": "cn",
+		"ldapRoleMap": [
+			{
+				"ldapRoleAttrValue": "TFREG"
+				"roles": ["registered"]
+			},
+			{
+				"ldapRoleAttrValue": "TFADM"
+				"roles": ["admin"]
+			}
+		]
+	}
+
 **baseURL**
 
 The URL of the LDAP server.
@@ -34,9 +36,21 @@ The base Distinguished Name to search under.
 The name of the attribute for which the username will be searched under. This will be appended to the end of the baseDN when querying the LDAP server.
 Using the example configuration above the query string will be:
 
-ou=people,o=Sample org,c=AU,uid=specifiedUsername
+	ou=people,o=Sample org,c=AU,uid=specifiedUsername
 
-**objectClassRoleMap**
+**filterPrefix**
 
-Maps objectClass values from the LDAP server to roles within The Fascinator. One objectClass value may map to many The Fascinator roles.
+The prefix for the LDAP search filter that is used to determine LDAP role membership. This field is optional.
+
+**filterSuffix**
+
+The suffix for the LDAP search filter that is used to determine LDAP role membership. This field is optional.
+
+**ldapRoleAttribute**
+
+The name of the LDAP attribute that contains the role values. If omitted, defaults to "objectClass".
+
+**ldapRoleMap**
+
+Maps role attribute values from LDAP to roles within The Fascinator. One `ldapRoleAttrValue` value may map to many The Fascinator `roles`.
 
