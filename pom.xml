@@ -46,7 +46,11 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
-
+  <scm>
+    <url>https://github.com/the-fascinator-contrib/plugin-roles-ldap.git</url>
+    <developerConnection>scm:git:https://github.com/the-fascinator-contrib/plugin-roles-ldap.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
     <repositories>
         <repository>
             <id>fascinator-snapshots</id>
