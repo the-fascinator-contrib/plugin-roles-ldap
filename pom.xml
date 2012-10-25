@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.googlecode.the-fascinator.plugins</groupId>
 	<artifactId>plugin-roles-ldap</artifactId>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>The Fascinator - Plugin - Roles - LDAP</name>
 	<description />
 	<url />
@@ -48,7 +48,7 @@
   <scm>
     <url>https://github.com/the-fascinator-contrib/plugin-roles-ldap.git</url>
     <developerConnection>scm:git:https://github.com/the-fascinator-contrib/plugin-roles-ldap.git</developerConnection>
-    <tag>plugin-roles-ldap-1.0</tag>
+    <tag>HEAD</tag>
   </scm>
     <repositories>
         <repository>
