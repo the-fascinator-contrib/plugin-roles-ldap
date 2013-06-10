@@ -63,4 +63,3 @@ The name of the LDAP attribute that contains the role values. If omitted, defaul
 **ldapRoleMap**
 
 Maps role attribute values from LDAP to roles within The Fascinator. One `ldapRoleAttrValue` value may map to many The Fascinator `roles`.
-
