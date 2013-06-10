@@ -54,7 +54,7 @@
 			<artifactId>plugin-authentication-ldap</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>../plugin-authentication-ldap/target/plugin-authentication-ldap-1.1-SNAPSHOT.jar</systemPath>
+      <systemPath>/tmp/plugin-authentication-ldap/target/plugin-authentication-ldap-1.1-SNAPSHOT.jar</systemPath>
     </dependency>
 
 
