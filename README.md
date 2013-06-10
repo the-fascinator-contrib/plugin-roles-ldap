@@ -33,11 +33,11 @@ The URL of the LDAP server.
 
 The base Distinguished Name to search under.
 
-** ldapSecurityPrincipal **
+**ldapSecurityPrincipal**
 
 The Security Principal to use for non-anonymous binding
 
-** ldapSecurityCredentials **
+**ldapSecurityCredentials**
 
 Credentials for Security Principal
 
