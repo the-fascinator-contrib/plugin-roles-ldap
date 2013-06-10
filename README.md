@@ -7,6 +7,8 @@ This plugin allows The Fascinator platform to query an LDAP server to determine 
 	"ldap": {  
 		"baseURL": "ldap://localhost:389",  
 		"baseDN": "ou=people,o=Sample org,c=AU",  
+    "ldapSecurityPrincipal": "cn=JohnDoe,ou=Some Account,dc=sample,dc=edu,dc=au"
+    "ldapSecurityCredentials": "<principal-password>"
 		"idAttribute": "uid",  
 		"filterPrefix": "uniquemember=",
 		"filterSuffix": ",ou=people,dc=adelaide,dc=edu,dc=au",
@@ -30,6 +32,14 @@ The URL of the LDAP server.
 **baseDN**
 
 The base Distinguished Name to search under.
+
+** ldapSecurityPrincipal **
+
+The Security Principal to use for non-anonymous binding
+
+** ldapSecurityCredentials **
+
+Credentials for Security Principal
 
 **idAttribute**
 
