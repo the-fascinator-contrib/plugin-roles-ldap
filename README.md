@@ -8,7 +8,7 @@ This plugin allows The Fascinator platform to query an LDAP server to determine 
 		"baseURL": "ldap://localhost:389",  
 		"baseDN": "ou=people,o=Sample org,c=AU",  
 		"ldapSecurityPrincipal": "cn=JohnDoe,ou=Some Account,dc=sample,dc=edu,dc=au",
-		"ldapSecurityCredentials": "<principal-password>",
+		"ldapSecurityCredentials": "******",
 		"idAttribute": "uid",  
 		"filterPrefix": "uniquemember=",
 		"filterSuffix": ",ou=people,dc=adelaide,dc=edu,dc=au",
