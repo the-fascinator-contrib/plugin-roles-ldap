@@ -39,25 +39,11 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-
-<!--
 		<dependency>
 			<groupId>com.googlecode.the-fascinator.plugins</groupId>
 			<artifactId>plugin-authentication-ldap</artifactId>
 			<version>1.0</version>
 		</dependency>
--->
-
-    <!-- NB: plugin-authentication-ldap must reside in parent-directory -->
-    <dependency>
-			<groupId>com.googlecode.the-fascinator.plugins</groupId>
-			<artifactId>plugin-authentication-ldap</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>/tmp/plugin-authentication-ldap/target/plugin-authentication-ldap-1.1-SNAPSHOT.jar</systemPath>
-    </dependency>
-
-
 	</dependencies>
   <scm>
     <url>https://github.com/the-fascinator-contrib/plugin-roles-ldap.git</url>

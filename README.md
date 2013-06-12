@@ -7,6 +7,8 @@ This plugin allows The Fascinator platform to query an LDAP server to determine 
 	"ldap": {  
 		"baseURL": "ldap://localhost:389",  
 		"baseDN": "ou=people,o=Sample org,c=AU",  
+		"ldapSecurityPrincipal": "cn=JohnDoe,ou=Some Account,dc=sample,dc=edu,dc=au",
+		"ldapSecurityCredentials": "******",
 		"idAttribute": "uid",  
 		"filterPrefix": "uniquemember=",
 		"filterSuffix": ",ou=people,dc=adelaide,dc=edu,dc=au",
@@ -31,6 +33,16 @@ The URL of the LDAP server.
 
 The base Distinguished Name to search under.
 
+**ldapSecurityPrincipal**
+
+The Security Principal of the service account used to bind to the LDAP server.
+(Leave empty to bind anonymously.)
+
+**ldapSecurityCredentials**
+
+Credentials for the service account used to bind to the LDAP server.
+(Leave empty to bind anonymously.)
+
 **idAttribute**
 
 The name of the attribute for which the username will be searched under. This will be appended to the end of the baseDN when querying the LDAP server.
@@ -53,4 +65,3 @@ The name of the LDAP attribute that contains the role values. If omitted, defaul
 **ldapRoleMap**
 
 Maps role attribute values from LDAP to roles within The Fascinator. One `ldapRoleAttrValue` value may map to many The Fascinator `roles`.
-
