@@ -65,6 +65,18 @@ import org.slf4j.LoggerFactory;
  * <td>ou=people,o=The University of Queensland,c=AU</td>
  * </tr>
  * <tr>
+ * <td>ldap/ldapSecurityPrincipal</td>
+ * <td>Security Principal to use for non-anonymous binding</td>
+ * <td><b>Yes</b></td>
+ * <td>cn=JohnDoe,ou=Sample Account,dc=sample,dc=edu,dc=au</td>
+ * </tr>
+ * <tr>
+ * <td>ldap/ldapSecurityCredentials</td>
+ * <td>Credentials for ldapSecurityPrincipal</td>
+ * <td><b>Yes</b></td>
+ * <td>******</td>
+ * </tr>
+ * <tr>
  * <td>ldap/idAttribute</td>
  * <td>The name of the attribute for which the username will be searched under</td>
  * <td><b>Yes</b></td>
@@ -110,6 +122,8 @@ import org.slf4j.LoggerFactory;
  *          "ldap": {
  *                "baseURL": "ldap://ldap.uq.edu.au:389",
  *                "baseDN": "ou=people,o=The University of Queensland,c=AU",
+ *                "ldapSecurityPrincipal": "cn=someName,ou=Staff Accounts,dn=sample,dn=edu,dn=au",
+ *                "ldapSecurityCredentials": "********",
  *                "idAttribute": "uid",
  *                "filterPrefix": "uniquemember=",
  *                "filterSuffix": ",ou=people,dc=adelaide,dc=edu,dc=au",
@@ -195,6 +209,8 @@ public class LDAPRoles implements Roles {
 		// Get the basics
 		String url = config.getString(null, CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "baseURL");
 		String baseDN = config.getString(null, CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "baseDN");
+		String ldapSecurityPrincipal = config.getString(null, CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "ldapSecurityPrincipal");
+		String ldapSecurityCredentials = config.getString(null, CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "ldapSecurityCredentials");
 		String idAttribute = config.getString(null, CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "idAttribute");
 		String filterPrefix = config.getString("", CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "filterPrefix");
 		String filterSuffix = config.getString("", CONFIG_PROP_ROLES, CONFIG_PROP_LDAP, "filterSuffix");
@@ -211,8 +227,8 @@ public class LDAPRoles implements Roles {
 			}
 		}
 
-		ldapAuthHandler = new LdapAuthenticationHandler(url, baseDN, ldapRoleAttribute,
-				idAttribute, filterPrefix, filterSuffix, ldapToFascinatorRolesMap);
+		ldapAuthHandler = new LdapAuthenticationHandler(url, baseDN, ldapSecurityPrincipal, ldapSecurityCredentials, 
+        ldapRoleAttribute, idAttribute, filterPrefix, filterSuffix, ldapToFascinatorRolesMap);
 	}
 
 	@Override
