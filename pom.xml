@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.googlecode.the-fascinator.plugins</groupId>
 	<artifactId>plugin-roles-ldap</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>The Fascinator - Plugin - Roles - LDAP</name>
 	<description />
 	<url />
